@@ -1,4 +1,5 @@
 import "./App.css";
+import KpiCard from "./components/KpiCard";
 
 const kpiData = [
     {
@@ -18,7 +19,7 @@ const kpiData = [
     },
     {
         title: "Port Congestion",
-        value: "Medium",
+        value: "10",
         description: "Current traffic level",
     },
 ];
@@ -102,11 +103,12 @@ function App() {
 
             <section className="kpi-grid">
                 {kpiData.map((item) => (
-                    <div className="kpi-card" key={item.title}>
-                        <h2>{item.value}</h2>
-                        <h3>{item.title}</h3>
-                        <p>{item.description}</p>
-                    </div>
+                    <KpiCard
+                        key={item.title}
+                        title={item.title}
+                        value={item.value}
+                        description={item.description}
+                    />
                 ))}
             </section>
 
