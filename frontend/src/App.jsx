@@ -105,6 +105,7 @@ function App() {
         return true;
     });
 
+
     return (
         <div className="app">
             <header className="header">
@@ -127,10 +128,25 @@ function App() {
                 ))}
             </section>
 
-            <div className="filter-buttons">
-                <button onClick={() => setFilter("all")}>All Vessels</button>
-                <button onClick={() => setFilter("delayed")}>Delayed Only</button>
-                <button onClick={() => setFilter("no-delay")}>No Delay</button>
+           <div className="filter-buttons">
+                <button
+                    className={filter === "all" ? "active-filter" : ""}
+                    onClick={() => setFilter("all")}
+                >
+                    All Vessels
+                </button>
+                <button
+                    className={filter === "delayed" ? "active-filter" : ""}
+                    onClick={() => setFilter("delayed")}
+                >
+                    Delayed Only
+                </button>
+                <button
+                    className={filter === "no-delay" ? "active-filter" : ""}
+                    onClick={() => setFilter("no-delay")}
+                >
+                    No Delay
+                </button>
             </div>
             <main className="content-grid">
                 <VesselTable vessels={filteredVessels} />

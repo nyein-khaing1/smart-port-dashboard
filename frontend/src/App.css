@@ -176,6 +176,12 @@ td {
             background-color: #e5e7eb;
         }
 
+        .filter-buttons button.active-filter {
+            background-color: #1f2937;
+            color: white;
+        }
+
+
 @media (max-width: 900px) {
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
