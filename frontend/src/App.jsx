@@ -1,6 +1,7 @@
 import "./App.css";
 import KpiCard from "./components/KpiCard";
 import VesselTable from "./components/VesselTable";
+import IncidentTimeline from "./components/IncidentTimeline";
 
 const kpiData = [
     {
@@ -116,19 +117,7 @@ function App() {
             <main className="content-grid">
                 <VesselTable vessels={vessels} />
 
-                <section className="panel">
-                    <h2>Incident Timeline</h2>
-
-                    <div className="timeline">
-                        {incidents.map((incident) => (
-                            <div className="incident-card" key={incident.id}>
-                                <span>{incident.time}</span>
-                                <h3>{incident.title}</h3>
-                                <p>{incident.details}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                <IncidentTimeline incidents={incidents} />
             </main>
         </div>
     );
