@@ -2,6 +2,7 @@ import "./App.css";
 import KpiCard from "./components/KpiCard";
 import VesselTable from "./components/VesselTable";
 import IncidentTimeline from "./components/IncidentTimeline";
+import { useState, useEffect } from "react";
 
 const kpiData = [
     {
@@ -92,6 +93,18 @@ const incidents = [
 ];
 
 function App() {
+    const [filter, setFilter] = useState("all");
+    //create a filter value
+    const filteredVessels = vessels.filter((vessel) => {
+        if (filter === "delayed"){
+            return vessel.delay !== "No delay";
+        }
+        if (filter === "no-delay"){
+            return vessel.delay === "No delay";
+        }
+        return true;
+    });
+
     return (
         <div className="app">
             <header className="header">
@@ -114,11 +127,16 @@ function App() {
                 ))}
             </section>
 
+            <div className="filter-buttons">
+                <button onClick={() => setFilter("all")}>All Vessels</button>
+                <button onClick={() => setFilter("delayed")}>Delayed Only</button>
+                <button onClick={() => setFilter("no-delay")}>No Delay</button>
+            </div>
             <main className="content-grid">
-                <VesselTable vessels={vessels} />
-
+                <VesselTable vessels={filteredVessels} />
                 <IncidentTimeline incidents={incidents} />
             </main>
+
         </div>
     );
 }

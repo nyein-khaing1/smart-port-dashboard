@@ -154,6 +154,28 @@ td {
         color: #6b7280;
     }
 
+
+.filter-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+    .filter-buttons button {
+        border: none;
+        background-color: white;
+        color: #1f2937;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+        .filter-buttons button:hover {
+            background-color: #e5e7eb;
+        }
+
 @media (max-width: 900px) {
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
