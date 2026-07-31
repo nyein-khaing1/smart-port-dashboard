@@ -5,28 +5,7 @@ import IncidentTimeline from "./components/IncidentTimeline";
 import { useState, useEffect } from "react";
 
 
-const kpiData = [
-    {
-        title: "Vessels in Port",
-        value: 25,
-        description: "Currently active vessels",
-    },
-    {
-        title: "Delayed Vessels",
-        value: 4,
-        description: "Vessels arriving later than planned",
-    },
-    {
-        title: "Active Incidents",
-        value: 3,
-        description: "Open operational issues",
-    },
-    {
-        title: "Port Congestion",
-        value: "10",
-        description: "Current traffic level",
-    },
-];
+
 
 const vessels = [
     {
@@ -62,6 +41,15 @@ const vessels = [
         status: "Arriving",
         arrivalTime: "14:45",
         delay: "30 mins",
+    },
+
+    {
+        id: 5,
+        name: "Harbour Light",
+        type: "Container",
+        status: "Delayed",
+        arrivalTime: "16:10",
+        delay: "1 hour",
     }
 ];
 
@@ -97,6 +85,7 @@ function App() {
     const [filter, setFilter] = useState("all");
     //create a filter value
     const [searchTerm, setSearchTerm] = useState("");
+    
 
     const filteredVessels = vessels.filter((vessel) => {
         const matchesSearch = vessel.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -109,6 +98,18 @@ function App() {
         return matchesSearch && matchesFilter;
 
     });
+
+    const totalVessels = vessels.length;
+    const delayedVessels = vessels.filter((vessel) => vessel.delay !== "No delay").length;
+    const activeIncidents = incidents.length;
+    const congestionLevel = delayedVessels >= 3 ? "High" : "Medium";
+
+    const kpiData = [
+        { title: "Total Vessels", value: totalVessels, description: "Currently tracked vessels" },
+        { title: "Delayed Vessels", value: delayedVessels, description: "Vessels arriving later than planned" },
+        { title: "Active Incidents", value: activeIncidents, description: "Open operational issues" },
+        { title: "Congestion Level", value: congestionLevel, description: "Current traffic level" },
+    ];
 
     
 
