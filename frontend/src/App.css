@@ -155,10 +155,18 @@ td {
     }
 
 
+
+.dashboard-controls {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
 .filter-buttons {
     display: flex;
     gap: 12px;
-    margin-bottom: 24px;
 }
 
     .filter-buttons button {
@@ -181,6 +189,20 @@ td {
             color: white;
         }
 
+.search-box input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+    .search-box input:focus {
+        outline: none;
+        border-color: #1f2937;
+        box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.12);
+    }
+
 
 @media (max-width: 900px) {
     .kpi-grid {
@@ -188,6 +210,10 @@ td {
     }
 
     .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-controls {
         grid-template-columns: 1fr;
     }
 }

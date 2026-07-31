@@ -4,6 +4,7 @@ import VesselTable from "./components/VesselTable";
 import IncidentTimeline from "./components/IncidentTimeline";
 import { useState, useEffect } from "react";
 
+
 const kpiData = [
     {
         title: "Vessels in Port",
@@ -95,15 +96,22 @@ const incidents = [
 function App() {
     const [filter, setFilter] = useState("all");
     //create a filter value
+    const [searchTerm, setSearchTerm] = useState("");
+
     const filteredVessels = vessels.filter((vessel) => {
-        if (filter === "delayed"){
-            return vessel.delay !== "No delay";
-        }
-        if (filter === "no-delay"){
-            return vessel.delay === "No delay";
-        }
-        return true;
+        const matchesSearch = vessel.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const matchesFilter = 
+            filter === "all" ||
+            (filter === "delayed" && vessel.delay !== "No delay") ||
+            (filter === "no-delay" && vessel.delay === "No delay");
+
+        return matchesSearch && matchesFilter;
+
     });
+
+    
+
 
 
     return (
@@ -127,26 +135,39 @@ function App() {
                     />
                 ))}
             </section>
+           
+           <div className="dashboard-controls">
+            <div className="filter-buttons">
+                <button
+                className={filter === "all" ? "active-filter" : ""}
+                onClick={() => setFilter("all")}
+                >
+                All Vessels
+                </button>
 
-           <div className="filter-buttons">
                 <button
-                    className={filter === "all" ? "active-filter" : ""}
-                    onClick={() => setFilter("all")}
+                className={filter === "delayed" ? "active-filter" : ""}
+                onClick={() => setFilter("delayed")}
                 >
-                    All Vessels
+                Delayed Only
                 </button>
+
                 <button
-                    className={filter === "delayed" ? "active-filter" : ""}
-                    onClick={() => setFilter("delayed")}
+                className={filter === "no-delay" ? "active-filter" : ""}
+                onClick={() => setFilter("no-delay")}
                 >
-                    Delayed Only
+                No Delay
                 </button>
-                <button
-                    className={filter === "no-delay" ? "active-filter" : ""}
-                    onClick={() => setFilter("no-delay")}
-                >
-                    No Delay
-                </button>
+            </div>
+
+            <div className="search-box">
+                <input
+                type="text"
+                placeholder="Search vessel..."
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                />
+            </div>
             </div>
             <main className="content-grid">
                 <VesselTable vessels={filteredVessels} />
