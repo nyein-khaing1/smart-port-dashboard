@@ -204,6 +204,34 @@ td {
     }
 
 
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+    .status-badge.arrived {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+    .status-badge.waiting {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-badge.delayed {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+    .status-badge.arriving {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+
 @media (max-width: 900px) {
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);

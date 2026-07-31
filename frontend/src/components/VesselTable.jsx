@@ -1,3 +1,5 @@
+import StatusBadge from "./StatusBadge";
+
 function VesselTable({ vessels }) {
     return (
         <section className="panel">
@@ -19,7 +21,9 @@ function VesselTable({ vessels }) {
                         <tr key={vessel.id}>
                             <td>{vessel.name}</td>
                             <td>{vessel.type}</td>
-                            <td>{vessel.status}</td>
+                            <td>
+                                <StatusBadge status={vessel.status} />
+                            </td>
                             <td>{vessel.arrivalTime}</td>
                             <td>{vessel.delay}</td>
                         </tr>
