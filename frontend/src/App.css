@@ -232,6 +232,18 @@ td {
         color: #1e40af;
     }
 
+
+.message {
+    padding: 32px;
+    font-size: 18px;
+    color: #1f2937;
+}
+
+.error-message {
+    color: #991b1b;
+}
+
+
 @media (max-width: 900px) {
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
