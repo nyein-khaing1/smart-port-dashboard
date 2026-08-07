@@ -12,35 +12,34 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    async function fetchDashboardData() {
-      try {
-        const vesselsResponse = await fetch("http://127.0.0.1:8000/vessels");
-        const incidentsResponse = await fetch(
-          "http://127.0.0.1:8000/incidents"
-        );
+  async function fetchDashboardData() {
+  try {
+    setLoading(true);
+    setError("");
 
-        if (!vesselsResponse.ok || !incidentsResponse.ok) {
-          throw new Error("Failed to fetch dashboard data");
-        }
+    const vesselsResponse = await fetch("http://127.0.0.1:8000/vessels");
+    const incidentsResponse = await fetch("http://127.0.0.1:8000/incidents");
 
-        const vesselsData = await vesselsResponse.json();
-        const incidentsData = await incidentsResponse.json();
-
-        setVessels(vesselsData);
-        setIncidents(incidentsData);
-      } catch (error) {
-        console.error(error);
-        setError(
-          "Could not load dashboard data. Please check the backend server."
-        );
-      } finally {
-        setLoading(false);
-      }
+    if (!vesselsResponse.ok || !incidentsResponse.ok) {
+      throw new Error("Failed to fetch dashboard data");
     }
 
-    fetchDashboardData();
-  }, []);
+    const vesselsData = await vesselsResponse.json();
+    const incidentsData = await incidentsResponse.json();
+
+    setVessels(vesselsData);
+    setIncidents(incidentsData);
+  } catch (error) {
+    console.error(error);
+    setError("Could not load dashboard data. Please check the backend server.");
+  } finally {
+    setLoading(false);
+  }
+}
+
+useEffect(() => {
+  fetchDashboardData();
+}, []);
 
   const filteredVessels = vessels.filter((vessel) => {
     const matchesSearch = vessel.name
@@ -104,7 +103,9 @@ function App() {
           <p>Real-time port intelligence practice system</p>
         </div>
 
-        <button className="refresh-button">Refresh Data</button>
+        <button className="refresh-button" onClick={fetchDashboardData}>
+          Refresh Data
+        </button>
       </header>
 
       <section className="kpi-grid">
