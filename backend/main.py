@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from database import initialize_database, get_all_vessels, get_all_incidents
+
 app = FastAPI()
 
 origins = [
@@ -18,80 +20,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-vessels = [
-    {
-        "id": 1,
-        "name": "Ocean Star",
-        "type": "Cargo",
-        "status": "Arrived",
-        "arrivalTime": "08:30",
-        "delay": "No delay",
-    },
-    {
-        "id": 2,
-        "name": "Blue Horizon",
-        "type": "Container",
-        "status": "Waiting",
-        "arrivalTime": "10:15",
-        "delay": "45 mins",
-    },
-    {
-        "id": 3,
-        "name": "North Sea Queen",
-        "type": "Tanker",
-        "status": "Delayed",
-        "arrivalTime": "12:00",
-        "delay": "2 hours",
-    },
-    {
-        "id": 4,
-        "name": "Silver Wave",
-        "type": "Cargo",
-        "status": "Arriving",
-        "arrivalTime": "14:45",
-        "delay": "30 mins",
-    },
-]
-
-incidents = [
-    {
-        "id": 1,
-        "time": "09:00",
-        "title": "Berth unavailable",
-        "details": "One berth is temporarily unavailable due to maintenance.",
-    },
-    {
-        "id": 2,
-        "time": "10:30",
-        "title": "Weather warning",
-        "details": "High wind conditions may delay vessel movement.",
-    },
-    {
-        "id": 3,
-        "time": "11:15",
-        "title": "Equipment issue",
-        "details": "Crane inspection required before unloading can continue.",
-    },
-]
+initialize_database()
 
 
 @app.get("/")
 def read_root():
-    return {"message": "Smart Port API is running"}
+    return {"message": "Smart Port API is running with SQLite database"}
 
 
 @app.get("/vessels")
 def get_vessels():
+    vessels = get_all_vessels()
     return vessels
 
 
 @app.get("/incidents")
 def get_incidents():
+    incidents = get_all_incidents()
     return incidents
 
 
 @app.get("/dashboard-stats")
 def get_dashboard_stats():
+    vessels = get_all_vessels()
+    incidents = get_all_incidents()
+
     total_vessels = len(vessels)
 
     delayed_vessels = len(
